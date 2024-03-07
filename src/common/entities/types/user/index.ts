@@ -1,10 +1,12 @@
+import { EUserStatus } from '../../enums';
 import { TMetaResponse } from '../common';
 
 export type TUserRequest = {
+  id?: string;
   fullname: string;
-  email: string;
+  email?: string;
   password: string;
-  status?: string;
+  status?: EUserStatus;
 };
 
 export type TUserResponse = TMetaResponse<TUserRequest[]>;

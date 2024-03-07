@@ -1,6 +1,6 @@
 export enum EUserStatus {
   ACTIVE = 'active',
-  NONACTIVE = 'NONACTIVE',
+  NONACTIVE = 'nonactive',
 }
 
 export enum EUserSortingBy {

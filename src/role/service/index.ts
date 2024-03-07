@@ -6,6 +6,7 @@ import {
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleEntitiy } from '../../common/';
+import { TRoleRequest } from 'src/common/entities/types/role';
 @Injectable()
 export class RoleService {
   constructor(
@@ -24,7 +25,7 @@ export class RoleService {
     return await this.roleRepository.find();
   }
 
-  async create(data: any) {
+  async create(data: TRoleRequest) {
     const res = await this.roleRepository.create(data);
     await this.roleRepository.save(res);
     if (!res) {
@@ -32,7 +33,7 @@ export class RoleService {
     }
     return res;
   }
-  async update(data: any) {
+  async update(data: TRoleRequest) {
     const { id, ...resData } = data;
     const res = await this.roleRepository.update(id, resData);
     if (!res) {
