@@ -7,13 +7,14 @@ import {
   EOrderBy,
   EUserSortingBy,
   RoleEntitiy,
+  TCreateUserRequest,
   TPaginationRequest,
+  TUpdateUserRequest,
 } from '../../common/';
 import { ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   UserEntitiy,
-  TUserRequest,
   TUserResponse,
   TUserSingleResponse,
   encryptPassword,
@@ -110,7 +111,7 @@ export class UserService {
     };
   }
 
-  async create(data: TUserRequest): Promise<TUserSingleResponse> {
+  async create(data: TCreateUserRequest): Promise<TUserSingleResponse> {
     const { roles, ...resdata } = data;
     const user = await this.userRepository.create(resdata);
     const findRoles = roles && (await this.roleRepository.findByIds(roles));
@@ -122,7 +123,7 @@ export class UserService {
     }
     return { message: 'Berhasil menambahkan user', data: res };
   }
-  async update(data: TUserRequest): Promise<TUserSingleResponse> {
+  async update(data: TUpdateUserRequest): Promise<TUserSingleResponse> {
     const { id, roles, password, ...resData } = data;
     const findUser = await this.findOne(id);
     const findRoles = roles && (await this.roleRepository.findByIds(roles));
