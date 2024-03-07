@@ -1,10 +1,18 @@
 import { TMetaResponse } from '../common';
 
-export type TPermissionRequest = {
-  id?: number;
+export type TPermission = {
+  id: number;
   name: string;
 };
 
-export type TPermissionResponse = TMetaResponse<TPermissionRequest[]>;
+export type TCreatePermissionRequest = {
+  name: string;
+};
 
-export type TPermissionSingleResponse = TMetaResponse<TPermissionRequest>;
+export type TUpdatePermissionRequest = TCreatePermissionRequest & {
+  id?: number;
+};
+
+export type TPermissionResponse = TMetaResponse<TPermission[]>;
+
+export type TPermissionSingleResponse = TMetaResponse<TPermission>;

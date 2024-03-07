@@ -7,9 +7,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PermissionEntitiy } from '../../common/';
 import {
-  TPermissionRequest,
+  TCreatePermissionRequest,
   TPermissionResponse,
   TPermissionSingleResponse,
+  TUpdatePermissionRequest,
 } from 'src/common/entities/types/permission';
 @Injectable()
 export class PermissionService {
@@ -32,7 +33,9 @@ export class PermissionService {
     return { message: 'Berhasil mengambil data', data: res };
   }
 
-  async create(data: TPermissionRequest): Promise<TPermissionSingleResponse> {
+  async create(
+    data: TCreatePermissionRequest,
+  ): Promise<TPermissionSingleResponse> {
     const permission = await this.permissionRepository.create(data);
     const res = await this.permissionRepository.save(permission);
     if (!res) {
@@ -40,7 +43,9 @@ export class PermissionService {
     }
     return { message: 'Berhasil menambahkan permission', data: res };
   }
-  async update(data: TPermissionRequest): Promise<TPermissionSingleResponse> {
+  async update(
+    data: TUpdatePermissionRequest,
+  ): Promise<TPermissionSingleResponse> {
     const { id, ...resData } = data;
     const permission = await this.findOne(id);
     const res = await this.permissionRepository.save({

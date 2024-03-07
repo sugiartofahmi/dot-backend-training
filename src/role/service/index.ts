@@ -7,9 +7,10 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PermissionEntitiy, RoleEntitiy } from '../../common/';
 import {
-  TRoleRequest,
+  TCreateRoleRequest,
   TRoleResponse,
   TRoleSingleResponse,
+  TUpdateRoleRequest,
 } from 'src/common/entities/types/role';
 @Injectable()
 export class RoleService {
@@ -47,7 +48,7 @@ export class RoleService {
     };
   }
 
-  async create(data: TRoleRequest): Promise<TRoleSingleResponse> {
+  async create(data: TCreateRoleRequest): Promise<TRoleSingleResponse> {
     const { permissions, ...resData } = data;
     const role = await this.roleRepository.create(resData);
     const findPermissions =
@@ -63,7 +64,7 @@ export class RoleService {
       data: res,
     };
   }
-  async update(data: TRoleRequest): Promise<TRoleSingleResponse> {
+  async update(data: TUpdateRoleRequest): Promise<TRoleSingleResponse> {
     const { id, permissions, ...resData } = data;
     const findRole = await this.findOne(id);
     const findPermissions =
