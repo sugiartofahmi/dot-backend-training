@@ -35,10 +35,10 @@ export class UserService {
   }
   async update(data: any) {
     const { id, ...resData } = data;
-    const res = await this.userRepository.update(id, resData);
-    if (!res) {
-      throw new NotFoundException(`Gagal update user`);
-    }
+    const findUser = await this.findOne(id);
+    const res = await this.userRepository.save(
+      Object.assign(findUser, resData),
+    );
     return res;
   }
 

@@ -34,6 +34,8 @@ export class UserEntitiy {
   @BeforeInsert()
   @BeforeUpdate()
   async hashPasword() {
-    this.password = await encryptPassword(this.password);
+    if (this.password) {
+      this.password = await encryptPassword(this.password);
+    }
   }
 }
