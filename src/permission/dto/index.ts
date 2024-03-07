@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreatePermissionDto {
   @IsString()
@@ -9,7 +9,7 @@ export class CreatePermissionDto {
 
 export class UpdatePermissionDto {
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @MinLength(1)
   name: string;
 }

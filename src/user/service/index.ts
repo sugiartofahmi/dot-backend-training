@@ -39,7 +39,7 @@ export class UserService {
     if (!res) {
       throw new NotFoundException(`Id tidak ditemukan`);
     }
-    return { data: res, message: 'Berhasil mengambil data' };
+    return { message: 'Berhasil mengambil data', data: res };
   }
 
   async findMany(data: TPaginationRequest): Promise<TUserResponse> {
@@ -96,8 +96,8 @@ export class UserService {
     ]);
     const lastPage = Math.ceil(count / Number(perPage));
     return {
-      data: res,
       message: 'Berhasil mengambil data',
+      data: res,
       meta: {
         total: count,
         totalPage: Math.ceil(count / Number(perPage)),
@@ -120,7 +120,7 @@ export class UserService {
     if (!res) {
       throw new BadRequestException('Gagal menambahkan user');
     }
-    return { data: res, message: 'Berhasil menambahkan user' };
+    return { message: 'Berhasil menambahkan user', data: res };
   }
   async update(data: TUserRequest): Promise<TUserSingleResponse> {
     const { id, roles, password, ...resData } = data;
@@ -135,7 +135,7 @@ export class UserService {
     if (!res) {
       throw new BadRequestException('Gagal update user');
     }
-    return { data: res, message: 'Berhasil update user' };
+    return { message: 'Berhasil update user', data: res };
   }
 
   async delete(id: string): Promise<TUserSingleResponse> {
@@ -152,6 +152,6 @@ export class UserService {
     if (!res) {
       throw new NotFoundException(`Id tidak ditemukan`);
     }
-    return { data: res, message: 'Berhasil menghapus user' };
+    return { message: 'Berhasil menghapus user', data: res };
   }
 }

@@ -24,12 +24,12 @@ export class PermissionService {
     if (!res) {
       throw new NotFoundException(`Id tidak ditemukan`);
     }
-    return { data: res, message: 'Berhasil mengambil data' };
+    return { message: 'Berhasil mengambil data', data: res };
   }
 
   async findMany(): Promise<TPermissionResponse> {
     const res = await this.permissionRepository.find();
-    return { data: res, message: 'Berhasil mengambil data' };
+    return { message: 'Berhasil mengambil data', data: res };
   }
 
   async create(data: TPermissionRequest): Promise<TPermissionSingleResponse> {
@@ -38,7 +38,7 @@ export class PermissionService {
     if (!res) {
       throw new BadRequestException('Gagal menambahkan permission');
     }
-    return { data: res, message: 'Berhasil menambahkan permission' };
+    return { message: 'Berhasil menambahkan permission', data: res };
   }
   async update(data: TPermissionRequest): Promise<TPermissionSingleResponse> {
     const { id, ...resData } = data;
@@ -51,7 +51,7 @@ export class PermissionService {
     if (!res) {
       throw new NotFoundException(`Gagal update permission`);
     }
-    return { data: res, message: 'Berhasil update permission' };
+    return { message: 'Berhasil update permission', data: res };
   }
 
   async delete(id: number): Promise<TPermissionSingleResponse> {
@@ -63,6 +63,6 @@ export class PermissionService {
     if (!res) {
       throw new NotFoundException(`Id tidak ditemukan`);
     }
-    return { data: res, message: 'Berhasil menghapus permission' };
+    return { message: 'Berhasil menghapus permission', data: res };
   }
 }
