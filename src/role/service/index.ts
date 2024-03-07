@@ -26,6 +26,7 @@ export class RoleService {
 
   async create(data: any) {
     const res = await this.roleRepository.create(data);
+    await this.roleRepository.save(res);
     if (!res) {
       throw new BadRequestException('Gagal menambahkan role');
     }
