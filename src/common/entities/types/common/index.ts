@@ -1,7 +1,7 @@
 import { EOrderBy, EUserSortingBy, EUserStatus } from '../../enums';
 export type TMetaResponse<T = null | undefined> = {
   message?: string;
-  data?: T;
+  data: T;
   errors?: Array<{ message: string }>;
   meta?: {
     total?: number;

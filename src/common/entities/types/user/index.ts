@@ -1,3 +1,4 @@
+import { RoleEntitiy } from 'src/common/database';
 import { EUserStatus } from '../../enums';
 import { TMetaResponse } from '../common';
 
@@ -6,7 +7,8 @@ export type TUserRequest = {
   fullname: string;
   email?: string;
   password: string;
-  status?: EUserStatus;
+  status?: EUserStatus | string;
+  roles?: RoleEntitiy[];
 };
 
 export type TUserResponse = TMetaResponse<TUserRequest[]>;

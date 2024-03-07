@@ -16,7 +16,7 @@ export class RoleController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.roleService.findOne(id);
+    return await this.roleService.findOne(Number(id));
   }
   @Get()
   async findMany() {
@@ -30,11 +30,11 @@ export class RoleController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() data: UpdateRoleDto) {
-    return await this.roleService.update({ id, ...data });
+    return await this.roleService.update({ id: Number(id), ...data });
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    return await this.roleService.delete(id);
+    return await this.roleService.delete(Number(id));
   }
 }
