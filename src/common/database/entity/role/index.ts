@@ -1,20 +1,20 @@
 import {
-  BeforeInsert,
-  BeforeUpdate,
   Column,
   Entity,
-  OneToMany,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
-@Entity()
+import { PermissionEntitiy } from '../permission';
+@Entity('role')
 export class RoleEntitiy {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ nullable: false, unique: true })
   name: string;
 
-  @Column({ nullable: false })
-  permission: string[];
+  @ManyToMany(() => PermissionEntitiy)
+  @JoinTable()
+  permissions: PermissionEntitiy[];
 }
