@@ -52,25 +52,39 @@ export class UserService {
       search,
       status,
     } = data;
+    const whereCondition =
+      search && status
+        ? [
+            {
+              fullname: ILike(`%${search}%`),
+              status,
+            },
+            {
+              email: ILike(`%${search}%`),
+              status,
+            },
+          ]
+        : search
+          ? [
+              {
+                fullname: ILike(`%${search}%`),
+              },
+              {
+                email: ILike(`%${search}%`),
+              },
+            ]
+          : status && [{ status }];
+
     const [res, count] = await Promise.all([
       this.userRepository.find({
-        where: [
-          search && {
-            fullname: ILike(`%${search}%`),
-            ...(status && { status }),
-          },
-          search && {
-            email: ILike(`%${search}%`),
-            ...(status && { status }),
-          },
-        ],
+        where: whereCondition,
         relations: {
           roles: {
             permissions: true,
           },
         },
         order: {
-          [sortingBy]: [orderBy],
+          [sortingBy]: orderBy.toLocaleUpperCase(),
         },
         take: Number(perPage),
         skip: (Number(page) - 1) * Number(perPage),
@@ -80,16 +94,7 @@ export class UserService {
           select: {
             id: true,
           },
-          where: [
-            search && {
-              fullname: ILike(`%${search}%`),
-              ...(status && { status }),
-            },
-            search && {
-              email: ILike(`%${search}%`),
-              ...(status && { status }),
-            },
-          ],
+          where: whereCondition,
           take: Number(perPage),
           skip: (Number(page) - 1) * Number(perPage),
         })
@@ -115,7 +120,6 @@ export class UserService {
     const { roles, ...resdata } = data;
     const user = await this.userRepository.create(resdata);
     const findRoles = roles && (await this.roleRepository.findByIds(roles));
-
     user.roles = roles && findRoles;
     const res = await this.userRepository.save(user);
     if (!res) {
@@ -142,12 +146,7 @@ export class UserService {
   async delete(id: string): Promise<TUserSingleResponse> {
     const findUser = await this.findOne(id);
     const res = await this.userRepository.remove({
-      id: findUser.data.id as string,
-      fullname: findUser.data.fullname,
-      password: findUser.data.password,
-      status: findUser.data.status,
-      email: findUser.data.email,
-      roles: findUser.data.roles,
+      ...findUser.data,
       hashPasword: async () => {},
     });
     if (!res) {
