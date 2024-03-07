@@ -1,8 +1,8 @@
 import { TMetaResponse } from '../common';
 
 export type TPermissionRequest = {
+  id?: string;
   name: string;
-  description: string;
 };
 
 export type TUserResponse = TMetaResponse<TPermissionRequest[]>;

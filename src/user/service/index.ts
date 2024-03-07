@@ -7,6 +7,7 @@ import { TPaginationRequest } from '../../common/';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntitiy } from '../../common/';
+import { TUserRequest } from 'src/common/entities/types/user';
 @Injectable()
 export class UserService {
   constructor(
@@ -25,7 +26,7 @@ export class UserService {
     return await this.userRepository.find();
   }
 
-  async create(data: any) {
+  async create(data: TUserRequest) {
     const res = await this.userRepository.create(data);
     if (!res) {
       throw new BadRequestException('Gagal menambahkan user');
@@ -33,7 +34,7 @@ export class UserService {
     await this.userRepository.save(res);
     return res;
   }
-  async update(data: any) {
+  async update(data: TUserRequest) {
     const { id, ...resData } = data;
     const findUser = await this.findOne(id);
     const res = await this.userRepository.save(

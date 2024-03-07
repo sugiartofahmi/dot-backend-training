@@ -8,6 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { PermissionService } from '../service';
+import { CreatePermissionDto, UpdatePermissionDto } from '../dto';
 
 @Controller('permission')
 export class PermissionController {
@@ -24,12 +25,12 @@ export class PermissionController {
   }
 
   @Post()
-  async create(@Body() data: any) {
+  async create(@Body() data: CreatePermissionDto) {
     return await this.permissionService.create(data);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() data: any) {
+  async update(@Param('id') id: string, @Body() data: UpdatePermissionDto) {
     return await this.permissionService.update({ id, ...data });
   }
 

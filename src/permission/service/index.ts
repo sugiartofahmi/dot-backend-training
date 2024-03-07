@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PermissionEntitiy } from '../../common/';
+import { TPermissionRequest } from 'src/common/entities/types/permission';
 @Injectable()
 export class PermissionService {
   constructor(
@@ -24,7 +25,7 @@ export class PermissionService {
     return await this.permissionRepository.find();
   }
 
-  async create(data: any) {
+  async create(data: TPermissionRequest) {
     const res = await this.permissionRepository.create(data);
     await this.permissionRepository.save(res);
     if (!res) {
@@ -32,7 +33,7 @@ export class PermissionService {
     }
     return res;
   }
-  async update(data: any) {
+  async update(data: TPermissionRequest) {
     const { id, ...resData } = data;
     const res = await this.permissionRepository.update(id, resData);
     if (!res) {

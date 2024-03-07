@@ -1,8 +1,10 @@
+import { PermissionEntitiy } from 'src/common/database';
 import { TMetaResponse } from '../common';
 
 export type TRoleRequest = {
+  id?: string;
   name: string;
-  permissions: string[];
+  permissions: PermissionEntitiy[];
 };
 
 export type TUserResponse = TMetaResponse<TRoleRequest[]>;

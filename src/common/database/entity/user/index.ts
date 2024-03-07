@@ -7,8 +7,9 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { encryptPassword } from 'src/common/utilities';
+import { encryptPassword } from '../../../utilities';
 import { RoleEntitiy } from '../role';
+import { EUserStatus } from '../../../entities';
 
 @Entity('user')
 export class UserEntitiy {
@@ -24,7 +25,7 @@ export class UserEntitiy {
   @Column({ nullable: false })
   password: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: EUserStatus.ACTIVE })
   status: string;
 
   @ManyToMany(() => RoleEntitiy)

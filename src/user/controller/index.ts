@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from '../service';
 import { TPaginationRequest } from '../../common/';
+import { CreateUserDto, UpdateUseDto } from '../dto';
 
 @Controller('user')
 export class UserController {
@@ -25,12 +26,12 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() data: any) {
+  async create(@Body() data: CreateUserDto) {
     return await this.userService.create(data);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() data: any) {
+  async update(@Param('id') id: string, @Body() data: UpdateUseDto) {
     return await this.userService.update({ id, ...data });
   }
 
