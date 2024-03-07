@@ -14,7 +14,7 @@ export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
   @Get(':id')
-  async findOne(@Param() id: string) {
+  async findOne(@Param('id') id: string) {
     return await this.roleService.findOne(id);
   }
   @Get()
@@ -28,12 +28,12 @@ export class RoleController {
   }
 
   @Patch(':id')
-  async update(@Param() id: string, @Body() data: any) {
+  async update(@Param('id') id: string, @Body() data: any) {
     return await this.roleService.update({ id, ...data });
   }
 
   @Delete(':id')
-  async delete(@Param() id: string) {
+  async delete(@Param('id') id: string) {
     return await this.roleService.delete(id);
   }
 }
