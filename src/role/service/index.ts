@@ -70,7 +70,7 @@ export class RoleService {
       permissions && (await this.permissionRepository.findByIds(permissions));
 
     const res = await this.roleRepository.save({
-      ...findRole.data,
+      id: findRole.data.id,
       ...resData,
       ...(permissions && { permissions: findPermissions }),
     });
