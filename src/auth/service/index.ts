@@ -13,8 +13,4 @@ export class AuthService {
   async refresh() {
     return;
   }
-
-  async logout() {
-    return;
-  }
 }

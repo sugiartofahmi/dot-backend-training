@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -24,17 +25,17 @@ export class UserController {
   }
 
   @Post()
-  async create() {
-    return await this.userService.create();
+  async create(@Body() data: any) {
+    return await this.userService.create(data);
   }
 
-  @Patch()
-  async update() {
-    return await this.userService.update();
+  @Patch(':id')
+  async update(@Param() id: string, @Body() data: any) {
+    return await this.userService.update({ id, ...data });
   }
 
-  @Delete()
-  async delete() {
-    return await this.userService.delete();
+  @Delete(':id')
+  async delete(@Param() id: string) {
+    return await this.userService.delete(id);
   }
 }

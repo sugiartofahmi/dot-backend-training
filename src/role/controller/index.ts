@@ -1,11 +1,19 @@
-import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { RoleService } from '../service';
 
 @Controller('role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
-  @Get()
+  @Get(':id')
   async findOne(@Param() id: string) {
     return await this.roleService.findOne(id);
   }
@@ -15,17 +23,17 @@ export class RoleController {
   }
 
   @Post()
-  async create() {
-    return await this.roleService.create();
+  async create(@Body() data: any) {
+    return await this.roleService.create(data);
   }
 
-  @Patch()
-  async update() {
-    return await this.roleService.update();
+  @Patch(':id')
+  async update(@Param() id: string, @Body() data: any) {
+    return await this.roleService.update({ id, ...data });
   }
 
-  @Delete()
-  async delete() {
-    return await this.roleService.delete();
+  @Delete(':id')
+  async delete(@Param() id: string) {
+    return await this.roleService.delete(id);
   }
 }
