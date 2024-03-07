@@ -7,4 +7,5 @@ export enum EUserSortingBy {
   FULLNAME = 'fullname',
   EMAIL = 'email',
   STATUS = 'status',
+  ROLE = 'role',
 }

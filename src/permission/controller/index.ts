@@ -16,7 +16,7 @@ export class PermissionController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.permissionService.findOne(id);
+    return await this.permissionService.findOne(Number(id));
   }
 
   @Get()
@@ -31,11 +31,11 @@ export class PermissionController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() data: UpdatePermissionDto) {
-    return await this.permissionService.update({ id, ...data });
+    return await this.permissionService.update({ id: Number(id), ...data });
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    return await this.permissionService.delete(id);
+    return await this.permissionService.delete(Number(id));
   }
 }

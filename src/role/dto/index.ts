@@ -6,7 +6,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { PermissionEntitiy } from '../../common';
+import { PermissionEntitiy } from 'src/common';
 
 export class CreateRoleDto {
   @IsString()

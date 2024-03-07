@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEmail,
   IsEnum,
   IsNotEmpty,
@@ -6,7 +7,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { EUserStatus } from 'src/common';
+import { EUserStatus, RoleEntitiy } from 'src/common';
 
 export class CreateUserDto {
   @IsString()
@@ -27,6 +28,10 @@ export class CreateUserDto {
   @IsOptional()
   @IsEnum(EUserStatus)
   status: EUserStatus;
+
+  @IsOptional()
+  @IsArray()
+  roles: RoleEntitiy[];
 }
 
 export class UpdateUseDto {
@@ -43,4 +48,8 @@ export class UpdateUseDto {
   @IsOptional()
   @IsEnum(EUserStatus)
   status: EUserStatus;
+
+  @IsOptional()
+  @IsArray()
+  roles: RoleEntitiy[];
 }
